@@ -12,15 +12,15 @@ struct Edge{
         value = _value;
     }
 
-    inline bool operator > (const Edge& f){
+    inline bool operator > (const Edge& f) const{
         return value > f.value;
     }
 
-    inline bool operator == (const Edge& f){
-        return value == f.value;
+    inline bool operator == (const Edge& f) const{
+        return (v_1 == f.v_1 && v_2 == f.v_2) || (v_1 == f.v_2 && v_2 == f.v_1);
     }
 
-    inline bool operator < (const Edge& f){
+    inline bool operator < (const Edge& f) const{
         return value < f.value;
     }
 };
@@ -77,6 +77,7 @@ struct DataIn{
 
 vector <Tree> Bees_Trees;
 DataIn datain;
+vector <Edge> sub_E_t;
 
 // Hàm dùng để nhập dữ liệu đầu vào
 void InputData(ifstream &fi){
@@ -256,6 +257,21 @@ vector <Edge> Complement_Edge(vector <Edge> a, vector <Edge> b){
         }
     }
 
+////    set <Edge> hashe;
+////    for (Edge e_2 : b){
+////        hashe.insert(e_2);
+////    }
+////    cerr << hashe.size();
+////    cerr << 'a';
+////    for (Edge e_1 : a){
+////        if (hashe.find(e_1) == hashe.end()){
+////            re.push_back(e_1);
+////        }
+////    }
+////
+////    cerr << 'b';
+////    cerr << re.size();
+
     return re;
 }
 
@@ -339,13 +355,13 @@ Tree EdgeRemove_Without_L(Tree t, Edge e){
     t.adj_V[e.v_1]--;
     t.adj_V[e.v_2]--;
 
-//    for (int i=0; i<t.E.size(); i++){
-//        if (((t.E[i].v_1 == e.v_1 && t.E[i].v_2 == e.v_2) || (t.E[i].v_1 == e.v_2 && t.E[i].v_2 == e.v_1)) && t.E[i].value == e.value){
-//            t.E.erase(t.E.begin() + i);
-//            break;
-//        }
-//    }
-    t.E.erase(find(t.E.begin(), t.E.end(), e));
+    for (int i=0; i<t.E.size(); i++){
+        if (((t.E[i].v_1 == e.v_1 && t.E[i].v_2 == e.v_2) || (t.E[i].v_1 == e.v_2 && t.E[i].v_2 == e.v_1)) && t.E[i].value == e.value){
+            t.E.erase(t.E.begin() + i);
+            break;
+        }
+    }
+    //t.E.erase(find(t.E.begin(), t.E.end(), e));
     return t;
 }
 
@@ -502,14 +518,22 @@ Tree NeighSearch(Tree t, int k){
     for (int i=1; i<=k; i++){
         Edge e_del = t.E[rand()%t.E.size()];
         t = EdgeRemove_Without_L(t, e_del);
-        vector <Edge> sub_E = Complement_Edge(datain.E, t.E);
-        Edge e_add = sub_E[rand()%sub_E.size()];
+//        vector <Edge> sub_E = Complement_Edge(datain.E, t.E);
+        Edge e_add = sub_E_t[rand()%sub_E_t.size()];
         t = EdgeAdd(t, e_add);
+
 
 //        cout << e_del.value << ' ' << e_add.value << ' ';
 //        cout << tb.T << ' ' << t.T << '\n';
-        if (is_steiner_tree(t) && t.T < tb.T){
+        if (t.T < tb.T && is_steiner_tree(t)){
             tb = t;
+            sub_E_t.push_back(e_del);
+            for (int j=0; j<sub_E_t.size(); j++){
+                if (sub_E_t[j] == e_add){
+                    sub_E_t.erase(sub_E_t.begin() + j);
+                    break;
+                }
+            }
         }
         else{
             t = tb;
@@ -527,7 +551,7 @@ Tree RandSearch(Tree t, int k){
         vector <Edge> sub_E = Complement_Edge(datain.E, t.E);
         Edge e_add = sub_E[rand()%sub_E.size()];
         t = EdgeAdd(t, e_add);
-        if (is_steiner_tree(t) && t.T < tb.T){
+        if (is_steiner_tree(t) &&  t.T < tb.T){
             tb = t;
         }
     }
@@ -803,12 +827,13 @@ int TestRunner(string fi){
     InputData(ffi);
     Bees_Trees.push_back(LikePrim());
     cout << "Default Cost: " << Bees_Trees[0].T << '\n';
-    cout << "sdsiakdlasjk" << Bees_Trees[0].T;
-    ReduceTree(Bees_Trees[0]);
-    cout << "asdjhsaokdhsalkdj" << Bees_Trees[0].T;
+//    cout << "sdsiakdlasjk" << Bees_Trees[0].T;
+//    ReduceTree(Bees_Trees[0]);
+//    cout << "asdjhsaokdhsalkdj" << Bees_Trees[0].T;
     // NeighSearch
     start = std::clock();
-    Tree t_neighsearch = NeighSearch(Bees_Trees[0], 10000);
+    sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
+    Tree t_neighsearch = NeighSearch(Bees_Trees[0], 1000);
 //    Tree tt = NeighSearch(t_neighsearch, 1000);
 //    while (t_neighsearch.T != tt.T){
 //        t_neighsearch = tt;
@@ -821,12 +846,14 @@ int TestRunner(string fi){
     cout << "Reduced NeighSearch Cost: " << t_neighsearch.T << '\n';
     cout << '\n';
     cerr << 1 << '\n';
+
+    sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
 //    PrintTree(t_neighsearch);
 
     // RandSearch
     start = std::clock();
     Tree tRS = Bees_Trees[0];
-    for (int i=1; i<=10000; i++){
+    for (int i=1; i<=1000; i++){
         tRS = RandSearch(tRS, 100);
     }
     cout << "RandSearch Cost: " << tRS.T << '\n';
@@ -942,7 +969,7 @@ int main(){
 //    PrintTree(Bees_Trees[0]);
 
 
-    TestRunner("steinb1.txt");
+//    TestRunner("steinb1.txt");
 //    TestRunner("steinb2.txt");
 //    TestRunner("steinb3.txt");
 //    TestRunner("steinb4.txt");
@@ -953,7 +980,7 @@ int main(){
 //    TestRunner("steinb9.txt");
 //    TestRunner("steinb10.txt");
 //    TestRunner("steinb11.txt");
-//    TestRunner("steinb12.txt");
+    TestRunner("steinb12.txt");
 //    TestRunner("steinb13.txt");
 //    TestRunner("steinb14.txt");
 //    TestRunner("steinb15.txt");
