@@ -1,6 +1,18 @@
-steinb12.txt
-Default Cost: 396
-NeighSearch Cost: 288
-Time: 9268 ms
-Reduced NeighSearch Cost: 214
+steinb18.txt
+Default Cost: 558
+NeighSearch Cost: 348
+Time: 28001 ms
+Reduced NeighSearch Cost: 235
 
+Search 1 Cost: 338
+Time: 50812 ms
+Reduced Search 1 Cost: 222
+
+Search 2 Cost: 339
+Time: 41143 ms
+Reduced Search 2 Cost: 223
+
+
+Time: 41145 ms
+
+Time: 120007 ms

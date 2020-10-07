@@ -548,11 +548,18 @@ Tree RandSearch(Tree t, int k){
     for (int i=1; i<=k; i++){
         Edge e_del = t.E[rand()%t.E.size()];
         t = EdgeRemove_Without_L(t, e_del);
-        vector <Edge> sub_E = Complement_Edge(datain.E, t.E);
-        Edge e_add = sub_E[rand()%sub_E.size()];
+//        vector <Edge> sub_E = Complement_Edge(datain.E, t.E);
+        Edge e_add = sub_E_t[rand()%sub_E_t.size()];
         t = EdgeAdd(t, e_add);
         if (is_steiner_tree(t) &&  t.T < tb.T){
             tb = t;
+            sub_E_t.push_back(e_del);
+            for (int j=0; j<sub_E_t.size(); j++){
+                if (sub_E_t[j] == e_add){
+                    sub_E_t.erase(sub_E_t.begin() + j);
+                    break;
+                }
+            }
         }
     }
 
@@ -576,20 +583,21 @@ int randfromto(int a, int b){
 }
 
 int RatePoint(int i){
-    srand(time(NULL));
+//    srand(time(NULL));
     int k = rand()%100;
-    if (k < 10){
+    if (k < 20){
         return randfromto(3*i/4 + 1, i-1);
     }
     else if (k < 30){
         return randfromto(i/2 + 1, 3*i/4);
     }
-    else if (k < 50){
+    else if (k < 45){
         return randfromto(i/4 + 1, i/2);
     }
     else if (k < 100){
         return randfromto(0, i/4);
     }
+    return randfromto(0, i-1);
 }
 
 void push_back_priority_greater(vector <Edge> &E, Edge a){
@@ -673,7 +681,7 @@ Tree Search_1(Tree t, int k){
 
 //        cout << e_del.value << ' ' << e_add.value << ' ';
 //        cout << tb.T << ' ' << t.T << '\n';
-        if (is_steiner_tree(t) && t.T < tb.T){
+        if (t.T < tb.T && is_steiner_tree(t)){
             tb = t;
             E.erase(find(E.begin(), E.end(), e_del));
             sub_E.erase(find(sub_E.begin(), sub_E.end(), e_add));
@@ -728,18 +736,17 @@ Tree Search_2(Tree t, int k){
 
     sort(E.begin(), E.end(), Compare_Edge_1);
     sort(sub_E.begin(), sub_E.end(), Compare_Edge_2);
-    sort(sub_E_temp.begin(), sub_E_temp.end(), Compare_Edge_2);
-    sub_E.insert(sub_E.begin(), sub_E_temp.begin(), sub_E_temp.end());
+//    sort(sub_E_temp.begin(), sub_E_temp.end(), Compare_Edge_2);
+//    sub_E.insert(sub_E.begin(), sub_E_temp.begin(), sub_E_temp.end());
 
     for (int i=1; i<=k; i++){
         Edge e_del = E[RatePoint(E.size())];
         t = EdgeRemove_Without_L(t, e_del);
         Edge e_add = sub_E[RatePoint(sub_E.size())];
         t = EdgeAdd(t, e_add);
-
 //        cout << e_del.value << ' ' << e_add.value << ' ';
 //        cout << tb.T << ' ' << t.T << '\n';
-        if (is_steiner_tree(t) && t.T < tb.T){
+        if (t.T < tb.T && is_steiner_tree(t)){
             tb = t;
             E.erase(find(E.begin(), E.end(), e_del));
             sub_E.erase(find(sub_E.begin(), sub_E.end(), e_add));
@@ -833,7 +840,7 @@ int TestRunner(string fi){
     // NeighSearch
     start = std::clock();
     sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
-    Tree t_neighsearch = NeighSearch(Bees_Trees[0], 1000);
+    Tree t_neighsearch = NeighSearch(Bees_Trees[0], 10000);
 //    Tree tt = NeighSearch(t_neighsearch, 1000);
 //    while (t_neighsearch.T != tt.T){
 //        t_neighsearch = tt;
@@ -854,14 +861,14 @@ int TestRunner(string fi){
     start = std::clock();
     Tree tRS = Bees_Trees[0];
     for (int i=1; i<=1000; i++){
-        tRS = RandSearch(tRS, 100);
+        tRS = RandSearch(tRS, 10);
     }
     cout << "RandSearch Cost: " << tRS.T << '\n';
     cout << "Time: " << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms\n";
     ReduceTree(tRS);
     cout << "Reduced RandSearch Cost: " << tRS.T << '\n';
     cout << '\n';
-    cerr << 2 << '\n';
+//    cerr << 2 << '\n';
 //    PrintTree(tRS);
 
     // Search 1
@@ -869,9 +876,9 @@ int TestRunner(string fi){
     Tree t_search_1 = Search_1(Bees_Trees[0], 10000);
     cout << "Search 1 Cost: " << t_search_1.T << '\n';
     cout << "Time: " << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms\n";
-    PrintTree(t_search_1);
+//    PrintTree(t_search_1);
     ReduceTree(t_search_1);
-    PrintTree(t_search_1);
+//    PrintTree(t_search_1);
     cout << "Reduced Search 1 Cost: " << t_search_1.T << '\n';
     cout << '\n';
     cerr << 3 << '\n';
@@ -980,13 +987,13 @@ int main(){
 //    TestRunner("steinb9.txt");
 //    TestRunner("steinb10.txt");
 //    TestRunner("steinb11.txt");
-    TestRunner("steinb12.txt");
+//    TestRunner("steinb12.txt");
 //    TestRunner("steinb13.txt");
 //    TestRunner("steinb14.txt");
 //    TestRunner("steinb15.txt");
 //    TestRunner("steinb16.txt");
 //    TestRunner("steinb17.txt");
-//    TestRunner("steinb18.txt");
+    TestRunner("steinb18.txt");
 //    TestRunner("steinb19.txt");
 //    TestRunner("steinb20.txt");
 
