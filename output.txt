@@ -1,18 +1,145 @@
-steinb18.txt
+steinb13.txt
+Default Cost: 421
+NeighSearch Cost: 421
+Time: 3344 ms
+Reduced NeighSearch Cost: 198
+
+RandSearch Cost: 421
+Time: 11248 ms
+Reduced RandSearch Cost: 198
+
+Search 1 Cost: 421
+Time: 2326 ms
+Reduced Search 1 Cost: 198
+
+Search 2 Cost: 421
+Time: 2330 ms
+Reduced Search 2 Cost: 198
+
+All Cost: 278
+Time: 55663 ms
+Reduced All Cost: 220
+
+Time: 55664 ms
+
+steinb13.txt
+Default Cost: 487
+NeighSearch Cost: 487
+Time: 3125 ms
+Reduced NeighSearch Cost: 199
+
+RandSearch Cost: 355
+Time: 24624 ms
+Reduced RandSearch Cost: 232
+
+Search 1 Cost: 487
+Time: 2798 ms
+Reduced Search 1 Cost: 199
+
+Search 2 Cost: 487
+Time: 2751 ms
+Reduced Search 2 Cost: 199
+
+All Cost: 327
+Time: 56507 ms
+Reduced All Cost: 236
+
+Time: 56508 ms
+
+steinb13.txt
+Default Cost: 551
+NeighSearch Cost: 431
+Time: 9574 ms
+Reduced NeighSearch Cost: 189
+
+RandSearch Cost: 432
+Time: 18651 ms
+Reduced RandSearch Cost: 223
+
+Search 1 Cost: 430
+Time: 13797 ms
+Reduced Search 1 Cost: 189
+
+Search 2 Cost: 441
+Time: 17901 ms
+Reduced Search 2 Cost: 189
+
+All Cost: 365
+Time: 70550 ms
+Reduced All Cost: 308
+
+Time: 70552 ms
+
+steinb13.txt
+Default Cost: 516
+NeighSearch Cost: 386
+Time: 7883 ms
+Reduced NeighSearch Cost: 189
+
+RandSearch Cost: 387
+Time: 15510 ms
+Reduced RandSearch Cost: 242
+
+Search 1 Cost: 386
+Time: 7846 ms
+Reduced Search 1 Cost: 189
+
+Search 2 Cost: 402
+Time: 7297 ms
+Reduced Search 2 Cost: 189
+
+All Cost: 333
+Time: 72753 ms
+Reduced All Cost: 296
+
+Time: 72755 ms
+
+steinb13.txt
+Default Cost: 525
+NeighSearch Cost: 421
+Time: 12886 ms
+Reduced NeighSearch Cost: 189
+
+RandSearch Cost: 425
+Time: 30085 ms
+Reduced RandSearch Cost: 233
+
+Search 1 Cost: 421
+Time: 31389 ms
+Reduced Search 1 Cost: 189
+
+Search 2 Cost: 429
+Time: 22766 ms
+Reduced Search 2 Cost: 189
+
+All Cost: 360
+Time: 94429 ms
+Reduced All Cost: 296
+
+Time: 94431 ms
+
+steinb13.txt
 Default Cost: 558
-NeighSearch Cost: 348
-Time: 28001 ms
-Reduced NeighSearch Cost: 235
+NeighSearch Cost: 481
+Time: 16274 ms
+Reduced NeighSearch Cost: 198
 
-Search 1 Cost: 338
-Time: 50812 ms
-Reduced Search 1 Cost: 222
+RandSearch Cost: 477
+Time: 25819 ms
+Reduced RandSearch Cost: 194
 
-Search 2 Cost: 339
-Time: 41143 ms
-Reduced Search 2 Cost: 223
+Search 1 Cost: 480
+Time: 31329 ms
+Reduced Search 1 Cost: 189
 
+Search 2 Cost: 480
+Time: 32622 ms
+Reduced Search 2 Cost: 189
 
-Time: 41145 ms
+All Cost: 412
+Time: 72195 ms
+Reduced All Cost: 290
 
-Time: 120007 ms
+Time: 72198 ms
+
+Time: 776410 ms

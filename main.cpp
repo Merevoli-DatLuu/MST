@@ -551,7 +551,7 @@ Tree RandSearch(Tree t, int k){
 //        vector <Edge> sub_E = Complement_Edge(datain.E, t.E);
         Edge e_add = sub_E_t[rand()%sub_E_t.size()];
         t = EdgeAdd(t, e_add);
-        if (is_steiner_tree(t) &&  t.T < tb.T){
+        if (t.T < tb.T && is_steiner_tree(t)){
             tb = t;
             sub_E_t.push_back(e_del);
             for (int j=0; j<sub_E_t.size(); j++){
@@ -828,12 +828,14 @@ int TestRunner(string fi){
     //datain.clear();
     clock_t start;
 
+    ofstream foo("re.txt", std::ios_base::app);
+    foo << fi << '\t';
     cout << fi << '\n';
-
     // Input Data
     InputData(ffi);
     Bees_Trees.push_back(LikePrim());
     cout << "Default Cost: " << Bees_Trees[0].T << '\n';
+    foo << Bees_Trees[0].T << '\t';
 //    cout << "sdsiakdlasjk" << Bees_Trees[0].T;
 //    ReduceTree(Bees_Trees[0]);
 //    cout << "asdjhsaokdhsalkdj" << Bees_Trees[0].T;
@@ -848,38 +850,46 @@ int TestRunner(string fi){
 //        cerr << 123;
 //    }
     cout << "NeighSearch Cost: " << t_neighsearch.T << '\n';
+    foo << t_neighsearch.T << '\t';
     cout << "Time: " << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms\n";
+    foo << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << '\t';
     ReduceTree(t_neighsearch);
     cout << "Reduced NeighSearch Cost: " << t_neighsearch.T << '\n';
+    foo << t_neighsearch.T << '\t';
     cout << '\n';
     cerr << 1 << '\n';
-
     sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
 //    PrintTree(t_neighsearch);
 
     // RandSearch
     start = std::clock();
     Tree tRS = Bees_Trees[0];
-    for (int i=1; i<=1000; i++){
-        tRS = RandSearch(tRS, 10);
+    for (int i=1; i<=10000; i++){
+        tRS = RandSearch(tRS, 5);
     }
     cout << "RandSearch Cost: " << tRS.T << '\n';
+    foo << tRS.T << '\t';
     cout << "Time: " << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms\n";
+    foo << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << '\t';
     ReduceTree(tRS);
     cout << "Reduced RandSearch Cost: " << tRS.T << '\n';
+    foo << tRS.T << '\t';
     cout << '\n';
-//    cerr << 2 << '\n';
+    cerr << 2 << '\n';
 //    PrintTree(tRS);
 
     // Search 1
     start = std::clock();
     Tree t_search_1 = Search_1(Bees_Trees[0], 10000);
     cout << "Search 1 Cost: " << t_search_1.T << '\n';
+    foo << t_search_1.T << '\t';
     cout << "Time: " << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms\n";
+    foo << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << '\t';
 //    PrintTree(t_search_1);
     ReduceTree(t_search_1);
 //    PrintTree(t_search_1);
     cout << "Reduced Search 1 Cost: " << t_search_1.T << '\n';
+    foo << t_search_1.T << '\t';
     cout << '\n';
     cerr << 3 << '\n';
 //    PrintTree(t_search_1);
@@ -888,16 +898,21 @@ int TestRunner(string fi){
     start = std::clock();
     Tree t_search_2 = Search_2(Bees_Trees[0], 10000);
     cout << "Search 2 Cost: " << t_search_2.T << '\n';
+    foo << t_search_2.T << '\t';
     cout << "Time: " << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms\n";
+    foo << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << '\t';
     ReduceTree(t_search_2);
     cout << "Reduced Search 2 Cost: " << t_search_2.T << '\n';
+    foo << t_search_2.T << '\t';
     cout << '\n';
     cerr << 4 << '\n';
 //    PrintTree(t_search_2);
 
     // All
-//    start = std::clock();
-//    Tree tta = NeighSearch(Bees_Trees[0], 10000);
+    start = std::clock();
+    sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
+    Tree tta = NeighSearch(Bees_Trees[0], 10000);
+    sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
 ////    bool st = false;
 ////    while (!st){
 ////        int T = tta.T;
@@ -912,9 +927,9 @@ int TestRunner(string fi){
 ////        sn = false;
 ////        while (!sn){
 ////            int t = tta.T;
-//            for (int i=1; i<=1000; i++){
-//                tta = RandSearch(tta, 10);
-//            }
+            for (int i=1; i<=10000; i++){
+                tta = RandSearch(tta, 5);
+            }
 ////            if (tta.T == t){
 ////                sn = true;
 ////            }
@@ -922,7 +937,7 @@ int TestRunner(string fi){
 ////        sn = false;
 ////        while (!sn){
 ////            int t = tta.T;
-//            tta = Search_1(tta, 10000);
+            tta = Search_1(tta, 10000);
 ////            if (tta.T == t){
 ////                sn = true;
 ////            }
@@ -930,7 +945,7 @@ int TestRunner(string fi){
 ////        sn = false;
 ////        while (!sn){
 ////            int t = tta.T;
-//            tta = Search_2(tta, 10000);
+            tta = Search_2(tta, 10000);
 ////            if (tta.T == t){
 ////                sn = true;
 ////            }
@@ -939,15 +954,19 @@ int TestRunner(string fi){
 ////            st = true;
 ////        }
 ////    }
-//    cout << "All Cost: " << tta.T << '\n';
-//    cout << "Time: " << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms\n";
-//    ReduceTree(tta);
-//    cout << "Reduced All Cost: " << tta.T << '\n';
+    cout << "All Cost: " << tta.T << '\n';
+    foo << tta.T << '\t';
+    cout << "Time: " << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms\n";
+    foo << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << '\t';
+    ReduceTree(tta);
+    cout << "Reduced All Cost: " << tta.T << '\n';
+    foo << tta.T << '\n';
     cout << '\n';
     cerr << "Done " << fi << '\n';
     cout << "Time: " << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms\n";
     cout << '\n';
     ffi.close();
+    foo.close();
 }
 
 int main(){
@@ -988,12 +1007,17 @@ int main(){
 //    TestRunner("steinb10.txt");
 //    TestRunner("steinb11.txt");
 //    TestRunner("steinb12.txt");
-//    TestRunner("steinb13.txt");
+    TestRunner("steinb13.txt");
+    TestRunner("steinb13.txt");
+    TestRunner("steinb13.txt");
+    TestRunner("steinb13.txt");
+    TestRunner("steinb13.txt");
+    TestRunner("steinb13.txt");
 //    TestRunner("steinb14.txt");
 //    TestRunner("steinb15.txt");
 //    TestRunner("steinb16.txt");
 //    TestRunner("steinb17.txt");
-    TestRunner("steinb18.txt");
+//    TestRunner("steinb18.txt");
 //    TestRunner("steinb19.txt");
 //    TestRunner("steinb20.txt");
 
