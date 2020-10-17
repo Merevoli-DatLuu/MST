@@ -995,7 +995,7 @@ int main(){
 //    PrintTree(Bees_Trees[0]);
 
 
-//    TestRunner("steinb1.txt");
+    TestRunner("steinb1.txt");
 //    TestRunner("steinb2.txt");
 //    TestRunner("steinb3.txt");
 //    TestRunner("steinb4.txt");
@@ -1007,12 +1007,7 @@ int main(){
 //    TestRunner("steinb10.txt");
 //    TestRunner("steinb11.txt");
 //    TestRunner("steinb12.txt");
-    TestRunner("steinb13.txt");
-    TestRunner("steinb13.txt");
-    TestRunner("steinb13.txt");
-    TestRunner("steinb13.txt");
-    TestRunner("steinb13.txt");
-    TestRunner("steinb13.txt");
+//    TestRunner("steinb13.txt");
 //    TestRunner("steinb14.txt");
 //    TestRunner("steinb15.txt");
 //    TestRunner("steinb16.txt");
