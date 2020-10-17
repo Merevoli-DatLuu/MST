@@ -1,25 +1,25 @@
-steinb1.txt
-Default Cost: 256
-NeighSearch Cost: 208
-Time: 3980 ms
+Steinb1.txt
+Default Cost: 285
+NeighSearch Cost: 228
+Time: 830.307 ms
 Reduced NeighSearch Cost: 83
 
-RandSearch Cost: 203
-Time: 6970 ms
-Reduced RandSearch Cost: 89
+RandSearch Cost: 229
+Time: 2507.4 ms
+Reduced RandSearch Cost: 103
 
-Search 1 Cost: 208
-Time: 9123 ms
+Search 1 Cost: 228
+Time: 2287.02 ms
 Reduced Search 1 Cost: 83
 
-Search 2 Cost: 210
-Time: 5316 ms
+Search 2 Cost: 228
+Time: 1650.48 ms
 Reduced Search 2 Cost: 83
 
-All Cost: 176
-Time: 30352 ms
-Reduced All Cost: 115
+All Cost: 184
+Time: 7046.94 ms
+Reduced All Cost: 128
 
-Time: 30353 ms
+Time: 7047.17 ms
 
-Time: 55782 ms
+Time: 14324.2 ms
