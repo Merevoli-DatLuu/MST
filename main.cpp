@@ -87,6 +87,8 @@ vector <Tree> Bees_Trees;
 DataIn datain;
 vector <Edge> sub_E_t;
 
+ofstream fo_xls("MST_xls.txt");
+
 /* Hàm dùng để nhập dữ liệu đầu vào */
 void InputData(ifstream &fi){
     fi >> datain.n >> datain.m;
@@ -874,6 +876,7 @@ int TestRunner(string fi){
     InputData(ffi);
     Bees_Trees.push_back(LikePrim());
     cout << "Default Cost: " << Bees_Trees[0].T << '\n';
+    fo_xls << Bees_Trees[0].T << '\t';
     foo << Bees_Trees[0].T << '\t';
 //    cout << "sdsiakdlasjk" << Bees_Trees[0].T;
 //    ReduceTree(Bees_Trees[0]);
@@ -881,7 +884,7 @@ int TestRunner(string fi){
 
 
 
-    /* NeighSearch */
+    /* NeighSearch */ /* Closed
     start = std::clock();
     sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
     Tree t_neighsearch = NeighSearch(Bees_Trees[0], 10000);
@@ -902,23 +905,30 @@ int TestRunner(string fi){
     cerr << 1 << '\n';
     sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
 //    PrintTree(t_neighsearch);
-
+    */
 
     /* RandSearch */
     start = std::clock();
     sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
     Tree tRS = Bees_Trees[0];
-    for (int i=1; i<=1000; i++){
+    for (int i=1; i<=5000; i++){
         tRS = RandSearch(tRS, 10);
     }
     cout << "RandSearch Cost: " << tRS.T << '\n';
+    fo_xls << tRS.T << '\t';
     foo << tRS.T << '\t';
+
     cout << "Time: " << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms\n";
+    fo_xls << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << '\t';
     foo << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << '\t';
     ReduceTree(tRS);
+
     cout << "Reduced RandSearch Cost: " << tRS.T << '\n';
+    fo_xls << tRS.T << '\n';
     foo << tRS.T << '\t';
+
     cout << '\n';
+    fo_xls << '\n';
     cerr << 2 << '\n';
     sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
 //    PrintTree(tRS);
@@ -1049,7 +1059,7 @@ int main(){
 //
 //    PrintTree(Bees_Trees[0]);
 
-    TestRunner("Steinb1.txt");
+//    TestRunner("Steinb1.txt");
 //    TestRunner("Steinb2.txt");
 //    TestRunner("Steinb3.txt");
 //    TestRunner("Steinb4.txt");
@@ -1066,7 +1076,25 @@ int main(){
 //    TestRunner("Steinb15.txt");
 //    TestRunner("Steinb16.txt");
 //    TestRunner("Steinb17.txt");
-//    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
+    TestRunner("Steinb18.txt");
 //    TestRunner("Steinb19.txt");
 //    TestRunner("Steinb20.txt");
 
