@@ -1029,6 +1029,9 @@ int main(){
 
 <<<<<<< Updated upstream
     TestRunner("Steinb1.txt");
+=======
+//    TestRunner("Steinb1.txt");
+>>>>>>> Stashed changes
 //    TestRunner("Steinb2.txt");
 //    TestRunner("Steinb3.txt");
 //    TestRunner("Steinb4.txt");
@@ -1042,6 +1045,9 @@ int main(){
 //    TestRunner("Steinb12.txt");
 <<<<<<< Updated upstream
 //    TestRunner("Steinb13.txt");
+=======
+    TestRunner("Steinb13.txt");
+>>>>>>> Stashed changes
 //    TestRunner("Steinb14.txt");
 //    TestRunner("Steinb15.txt");
 //    TestRunner("Steinb16.txt");
