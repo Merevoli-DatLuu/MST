@@ -427,6 +427,17 @@ void ReduceTree(Tree &t){
     }
 }
 
+int ReduceTreeValue(Tree t){
+    int E_size = t.E.size();
+    t = EdgeDel(t);
+    while (E_size != t.E.size()){
+        E_size = t.E.size();
+        t = EdgeDel(t);
+    }
+
+    return t.T;
+}
+
 // Tìm xem u thuộc cây nào
 int Find(int u, int cha[]) {
     if (cha[u] != u) cha[u] = Find(cha[u], cha);
@@ -560,7 +571,20 @@ Tree RandSearch(Tree t, int k){
 //        vector <Edge> sub_E = Complement_Edge(datain.E, t.E);
         Edge e_add = sub_E_t[rand()%sub_E_t.size()];
         t = EdgeAdd(t, e_add);
+
+        /* Closed
         if (t.T < tb.T && is_steiner_tree(t)){
+            tb = t;
+            sub_E_t.push_back(e_del);
+            for (int j=0; j<sub_E_t.size(); j++){
+                if (sub_E_t[j] == e_add){
+                    sub_E_t.erase(sub_E_t.begin() + j);
+                    break;
+                }
+            }
+        }
+        */
+        if (ReduceTreeValue(t) < ReduceTreeValue(tb) && is_steiner_tree(t)){
             tb = t;
             sub_E_t.push_back(e_del);
             for (int j=0; j<sub_E_t.size(); j++){
@@ -857,7 +881,7 @@ int TestRunner(string fi){
 
 
 
-    /* NeighSearch */ /* Closed
+    /* NeighSearch */
     start = std::clock();
     sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
     Tree t_neighsearch = NeighSearch(Bees_Trees[0], 10000);
@@ -878,14 +902,13 @@ int TestRunner(string fi){
     cerr << 1 << '\n';
     sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
 //    PrintTree(t_neighsearch);
-    */
 
 
     /* RandSearch */
     start = std::clock();
     sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
     Tree tRS = Bees_Trees[0];
-    for (int i=1; i<=10000; i++){
+    for (int i=1; i<=1000; i++){
         tRS = RandSearch(tRS, 10);
     }
     cout << "RandSearch Cost: " << tRS.T << '\n';
@@ -1026,12 +1049,7 @@ int main(){
 //
 //    PrintTree(Bees_Trees[0]);
 
-
-<<<<<<< Updated upstream
     TestRunner("Steinb1.txt");
-=======
-//    TestRunner("Steinb1.txt");
->>>>>>> Stashed changes
 //    TestRunner("Steinb2.txt");
 //    TestRunner("Steinb3.txt");
 //    TestRunner("Steinb4.txt");
@@ -1043,11 +1061,7 @@ int main(){
 //    TestRunner("Steinb10.txt");
 //    TestRunner("Steinb11.txt");
 //    TestRunner("Steinb12.txt");
-<<<<<<< Updated upstream
 //    TestRunner("Steinb13.txt");
-=======
-    TestRunner("Steinb13.txt");
->>>>>>> Stashed changes
 //    TestRunner("Steinb14.txt");
 //    TestRunner("Steinb15.txt");
 //    TestRunner("Steinb16.txt");
