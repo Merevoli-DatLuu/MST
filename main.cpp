@@ -907,7 +907,7 @@ int TestRunner(string fi){
 //    PrintTree(t_neighsearch);
     */
 
-    /* RandSearch */
+    /* RandSearch */ /* Closed
     start = std::clock();
     sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
     Tree tRS = Bees_Trees[0];
@@ -932,25 +932,31 @@ int TestRunner(string fi){
     cerr << 2 << '\n';
     sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
 //    PrintTree(tRS);
+    */
 
 
-
-    /* Search 1 */ /* Closed
+    /* Search 1 */
     start = std::clock();
     Tree t_search_1 = Search_1(Bees_Trees[0], 10000);
+
     cout << "Search 1 Cost: " << t_search_1.T << '\n';
+    fo_xls << t_search_1.T << '\t';
     foo << t_search_1.T << '\t';
+
     cout << "Time: " << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms\n";
+    fo_xls << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << '\t';
     foo << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << '\t';
+
 //    PrintTree(t_search_1);
     ReduceTree(t_search_1);
 //    PrintTree(t_search_1);
     cout << "Reduced Search 1 Cost: " << t_search_1.T << '\n';
+    fo_xls << t_search_1.T << '\t';
     foo << t_search_1.T << '\t';
     cout << '\n';
+    fo_xls << '\n';
     cerr << 3 << '\n';
 //    PrintTree(t_search_1);
-    */
 
 
     /* Search 2 */ /* Closed
@@ -1059,7 +1065,21 @@ int main(){
 //
 //    PrintTree(Bees_Trees[0]);
 
-//    TestRunner("Steinb1.txt");
+    TestRunner("Steinb1.txt");
+    TestRunner("Steinb1.txt");
+    TestRunner("Steinb1.txt");
+    TestRunner("Steinb1.txt");
+    TestRunner("Steinb1.txt");
+    TestRunner("Steinb1.txt");
+    TestRunner("Steinb1.txt");
+    TestRunner("Steinb1.txt");
+    TestRunner("Steinb1.txt");
+    TestRunner("Steinb1.txt");
+    TestRunner("Steinb1.txt");
+    TestRunner("Steinb1.txt");
+    TestRunner("Steinb1.txt");
+    TestRunner("Steinb1.txt");
+    TestRunner("Steinb1.txt");
 //    TestRunner("Steinb2.txt");
 //    TestRunner("Steinb3.txt");
 //    TestRunner("Steinb4.txt");
@@ -1076,25 +1096,7 @@ int main(){
 //    TestRunner("Steinb15.txt");
 //    TestRunner("Steinb16.txt");
 //    TestRunner("Steinb17.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
+//    TestRunner("Steinb18.txt");
 //    TestRunner("Steinb19.txt");
 //    TestRunner("Steinb20.txt");
 

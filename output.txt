@@ -1,13 +1,121 @@
 Steinb1.txt
-Default Cost: 224
-NeighSearch Cost: 189
-Time: 2418 ms
-Reduced NeighSearch Cost: 89
+Default Cost: 279
+Search 1 Cost: 238
+Time: 7092 ms
+Reduced Search 1 Cost: 89
 
-RandSearch Cost: 232
-Time: 7299 ms
-Reduced RandSearch Cost: 82
+Time: 7094 ms
 
-Time: 7300 ms
+Steinb1.txt
+Default Cost: 238
+Search 1 Cost: 192
+Time: 4654 ms
+Reduced Search 1 Cost: 89
 
-Time: 9738 ms
+Time: 4656 ms
+
+Steinb1.txt
+Default Cost: 276
+Search 1 Cost: 228
+Time: 5351 ms
+Reduced Search 1 Cost: 83
+
+Time: 5352 ms
+
+Steinb1.txt
+Default Cost: 268
+Search 1 Cost: 228
+Time: 5211 ms
+Reduced Search 1 Cost: 89
+
+Time: 5212 ms
+
+Steinb1.txt
+Default Cost: 254
+Search 1 Cost: 203
+Time: 4105 ms
+Reduced Search 1 Cost: 89
+
+Time: 4107 ms
+
+Steinb1.txt
+Default Cost: 278
+Search 1 Cost: 228
+Time: 2936 ms
+Reduced Search 1 Cost: 89
+
+Time: 2937 ms
+
+Steinb1.txt
+Default Cost: 281
+Search 1 Cost: 238
+Time: 4394 ms
+Reduced Search 1 Cost: 83
+
+Time: 4395 ms
+
+Steinb1.txt
+Default Cost: 270
+Search 1 Cost: 219
+Time: 2604 ms
+Reduced Search 1 Cost: 83
+
+Time: 2606 ms
+
+Steinb1.txt
+Default Cost: 271
+Search 1 Cost: 228
+Time: 3310 ms
+Reduced Search 1 Cost: 83
+
+Time: 3311 ms
+
+Steinb1.txt
+Default Cost: 266
+Search 1 Cost: 219
+Time: 5409 ms
+Reduced Search 1 Cost: 89
+
+Time: 5411 ms
+
+Steinb1.txt
+Default Cost: 264
+Search 1 Cost: 238
+Time: 6250 ms
+Reduced Search 1 Cost: 89
+
+Time: 6251 ms
+
+Steinb1.txt
+Default Cost: 297
+Search 1 Cost: 238
+Time: 7474 ms
+Reduced Search 1 Cost: 83
+
+Time: 7476 ms
+
+Steinb1.txt
+Default Cost: 264
+Search 1 Cost: 219
+Time: 5543 ms
+Reduced Search 1 Cost: 89
+
+Time: 5545 ms
+
+Steinb1.txt
+Default Cost: 282
+Search 1 Cost: 238
+Time: 5844 ms
+Reduced Search 1 Cost: 83
+
+Time: 5845 ms
+
+Steinb1.txt
+Default Cost: 255
+Search 1 Cost: 211
+Time: 3316 ms
+Reduced Search 1 Cost: 89
+
+Time: 3317 ms
+
+Time: 73638 ms
