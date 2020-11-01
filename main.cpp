@@ -1,8 +1,14 @@
+/**
+    This is a program for Steiner Tree
+    Using 4 heuristic algorithms
+**/
+
 #include <bits/stdc++.h>
 #include <ctime>
 
 using namespace std;
 
+/** Edge class **/
 struct Edge{
     int v_1, v_2, value;
 
@@ -25,6 +31,7 @@ struct Edge{
     }
 };
 
+/** Tree class **/
 struct Tree{
     vector <int> V;
     vector <Edge> E;
@@ -52,6 +59,7 @@ struct Tree{
 
 };
 
+/** Input Data class **/
 struct DataIn{
     int n, m, l;
     vector <int> V;
@@ -79,9 +87,10 @@ vector <Tree> Bees_Trees;
 DataIn datain;
 vector <Edge> sub_E_t;
 
-// Hàm dùng để nhập dữ liệu đầu vào
+/* Hàm dùng để nhập dữ liệu đầu vào */
 void InputData(ifstream &fi){
     fi >> datain.n >> datain.m;
+
     int v1, v2, v;
     for (int i=1; i<=datain.m; i++){
         fi >> v1 >> v2 >> v;
@@ -121,7 +130,7 @@ void XuatInput(){
     cout << endl;
 }
 
-// Kiểm tra a là tập con của b
+/* Kiểm tra a là tập con của b */
 bool Subset_check(vector <int> a, vector <int> b){
     if (a.size() > b.size()){
         return false;
@@ -141,7 +150,7 @@ bool Subset_check(vector <int> a, vector <int> b){
     }
 }
 
-// Trả về phần bù b trong a (a - b)
+/* Trả về phần bù b trong a (a - b) */
 vector <int> Complement(vector <int> a, vector <int> b){
     set <int> hash;
     for (int i=0; i<b.size(); i++){
@@ -157,7 +166,7 @@ vector <int> Complement(vector <int> a, vector <int> b){
     return re;
 }
 
-// Hàm dùng để kiểm tra đỉnh kề với đỉnh u
+/* Hàm dùng để kiểm tra đỉnh kề với đỉnh u */
 int adjacency_check(int u, vector <int> a){
     for (int i=0; i<a.size(); i++){
         if (datain.adjmatrix.find(make_pair(u, a[i])) != datain.adjmatrix.end()){
@@ -167,7 +176,7 @@ int adjacency_check(int u, vector <int> a){
     return -1;
 }
 
-// Hàm LikePrim để sinh ngẫu nhiên cây Steiner
+/* Hàm LikePrim để sinh ngẫu nhiên cây Steiner */
 Tree LikePrim(){
     //srand(time(NULL));
 
@@ -204,7 +213,7 @@ Tree LikePrim(){
     return Tree(V, E, adjmatrix, T, adj_V);
 }
 
-// Xuất cây Steiner
+/* Xuất cây Steiner */
 void PrintTree(Tree x){
     cout << x.V.size() << ' ' << x.E.size() << '\n';
     for (int e : x.V){
@@ -217,7 +226,7 @@ void PrintTree(Tree x){
     cout << x.T << '\n';
 }
 
-// Tạo quần thể cây Steiner ban đầu
+/* Tạo quần thể cây Steiner ban đầu */
 void InitPopulation(int num){
     for (int i=1; i<=num; i++){
         Bees_Trees.push_back(LikePrim());   //? Op : loại bỏ những cây giống nhau
@@ -801,7 +810,7 @@ void Bees_Steiner(){
 
 int TestRunner(string fi){
 
-    // Input Data File
+    /* Input Data File */
 //    freopen(("./test file/TB/" + fi).c_str(), "r", stdin);
     ifstream ffi;
 
@@ -821,7 +830,10 @@ int TestRunner(string fi){
     else{
         ffi.open("./test file/TB/" + fi, ifstream::in);
     }
-    // init
+
+
+
+    /* init */
     Bees_Trees.clear();
 //    Bees_Trees = vector <Tree>();
     datain = DataIn();
@@ -831,7 +843,10 @@ int TestRunner(string fi){
     ofstream foo("re.txt", std::ios_base::app);
     foo << fi << '\t';
     cout << fi << '\n';
-    // Input Data
+
+
+
+    /* Input Data */
     InputData(ffi);
     Bees_Trees.push_back(LikePrim());
     cout << "Default Cost: " << Bees_Trees[0].T << '\n';
@@ -839,7 +854,10 @@ int TestRunner(string fi){
 //    cout << "sdsiakdlasjk" << Bees_Trees[0].T;
 //    ReduceTree(Bees_Trees[0]);
 //    cout << "asdjhsaokdhsalkdj" << Bees_Trees[0].T;
-    // NeighSearch
+
+
+
+    /* NeighSearch */ /* Closed
     start = std::clock();
     sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
     Tree t_neighsearch = NeighSearch(Bees_Trees[0], 10000);
@@ -860,12 +878,15 @@ int TestRunner(string fi){
     cerr << 1 << '\n';
     sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
 //    PrintTree(t_neighsearch);
+    */
 
-    // RandSearch
+
+    /* RandSearch */
     start = std::clock();
+    sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
     Tree tRS = Bees_Trees[0];
     for (int i=1; i<=10000; i++){
-        tRS = RandSearch(tRS, 5);
+        tRS = RandSearch(tRS, 10);
     }
     cout << "RandSearch Cost: " << tRS.T << '\n';
     foo << tRS.T << '\t';
@@ -876,9 +897,12 @@ int TestRunner(string fi){
     foo << tRS.T << '\t';
     cout << '\n';
     cerr << 2 << '\n';
+    sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
 //    PrintTree(tRS);
 
-    // Search 1
+
+
+    /* Search 1 */ /* Closed
     start = std::clock();
     Tree t_search_1 = Search_1(Bees_Trees[0], 10000);
     cout << "Search 1 Cost: " << t_search_1.T << '\n';
@@ -893,8 +917,10 @@ int TestRunner(string fi){
     cout << '\n';
     cerr << 3 << '\n';
 //    PrintTree(t_search_1);
+    */
 
-    // Search 2
+
+    /* Search 2 */ /* Closed
     start = std::clock();
     Tree t_search_2 = Search_2(Bees_Trees[0], 10000);
     cout << "Search 2 Cost: " << t_search_2.T << '\n';
@@ -907,8 +933,10 @@ int TestRunner(string fi){
     cout << '\n';
     cerr << 4 << '\n';
 //    PrintTree(t_search_2);
+    */
 
-    // All
+
+    /* All */ /* Closed
     start = std::clock();
     sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
     Tree tta = NeighSearch(Bees_Trees[0], 10000);
@@ -962,6 +990,10 @@ int TestRunner(string fi){
     cout << "Reduced All Cost: " << tta.T << '\n';
     foo << tta.T << '\n';
     cout << '\n';
+    */
+
+
+    /* Print Output */
     cerr << "Done " << fi << '\n';
     cout << "Time: " << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms\n";
     cout << '\n';
@@ -995,6 +1027,7 @@ int main(){
 //    PrintTree(Bees_Trees[0]);
 
 
+<<<<<<< Updated upstream
     TestRunner("Steinb1.txt");
 //    TestRunner("Steinb2.txt");
 //    TestRunner("Steinb3.txt");
@@ -1007,6 +1040,7 @@ int main(){
 //    TestRunner("Steinb10.txt");
 //    TestRunner("Steinb11.txt");
 //    TestRunner("Steinb12.txt");
+<<<<<<< Updated upstream
 //    TestRunner("Steinb13.txt");
 //    TestRunner("Steinb14.txt");
 //    TestRunner("Steinb15.txt");

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 Steinb1.txt
 Default Cost: 285
 NeighSearch Cost: 228
@@ -23,3 +24,7 @@ Reduced All Cost: 128
 Time: 7047.17 ms
 
 Time: 14324.2 ms
+=======
+Steinb13.txt
+Default Cost: 561
+>>>>>>> Stashed changes
