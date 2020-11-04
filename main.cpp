@@ -547,7 +547,7 @@ Tree NeighSearch(Tree t, int k){
 
 //        cout << e_del.value << ' ' << e_add.value << ' ';
 //        cout << tb.T << ' ' << t.T << '\n';
-        if (t.T < tb.T && is_steiner_tree(t)){
+        if (ReduceTreeValue(t) < ReduceTreeValue(tb) && is_steiner_tree(t)){
             tb = t;
             sub_E_t.push_back(e_del);
             for (int j=0; j<sub_E_t.size(); j++){
@@ -834,7 +834,7 @@ void Bees_Steiner(){
     cout << "Min : " << tb.T << '\n';
 }
 
-int TestRunner(string fi){
+void TestRunner(string fi){
 
     /* Input Data File */
 //    freopen(("./test file/TB/" + fi).c_str(), "r", stdin);
@@ -884,10 +884,10 @@ int TestRunner(string fi){
 
 
 
-    /* NeighSearch */ /* Closed
+    /* NeighSearch */
     start = std::clock();
     sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
-    Tree t_neighsearch = NeighSearch(Bees_Trees[0], 10000);
+    Tree t_neighsearch = NeighSearch(Bees_Trees[0], 2*datain.m*datain.m);
 //    Tree tt = NeighSearch(t_neighsearch, 1000);
 //    while (t_neighsearch.T != tt.T){
 //        t_neighsearch = tt;
@@ -895,17 +895,24 @@ int TestRunner(string fi){
 //        cerr << 123;
 //    }
     cout << "NeighSearch Cost: " << t_neighsearch.T << '\n';
+    fo_xls << t_neighsearch.T << '\t';
     foo << t_neighsearch.T << '\t';
+
     cout << "Time: " << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms\n";
+    fo_xls << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << '\t';
     foo << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << '\t';
+
     ReduceTree(t_neighsearch);
     cout << "Reduced NeighSearch Cost: " << t_neighsearch.T << '\n';
+    fo_xls << t_neighsearch.T << '\t';
     foo << t_neighsearch.T << '\t';
+
     cout << '\n';
+    fo_xls << '\n';
     cerr << 1 << '\n';
     sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
 //    PrintTree(t_neighsearch);
-    */
+
 
     /* RandSearch */ /* Closed
     start = std::clock();
@@ -959,7 +966,7 @@ int TestRunner(string fi){
 //    PrintTree(t_search_1);
     */
 
-    /* Search 2 */
+    /* Search 2 */ /* Closed
     start = std::clock();
     Tree t_search_2 = Search_2(Bees_Trees[0], 10000);
     cout << "Search 2 Cost: " << t_search_2.T << '\n';
@@ -978,7 +985,7 @@ int TestRunner(string fi){
     fo_xls << '\n';
     cerr << 4 << '\n';
 //    PrintTree(t_search_2);
-
+    */
 
     /* All */ /* Closed
     start = std::clock();
@@ -1071,380 +1078,28 @@ int main(){
 //    PrintTree(Bees_Trees[0]);
 
 //    TestRunner("Steinb1.txt");
-/*
-    fo_xls << "Test 2" << endl;
-    TestRunner("Steinb2.txt");
-    TestRunner("Steinb2.txt");
-    TestRunner("Steinb2.txt");
-    TestRunner("Steinb2.txt");
-    TestRunner("Steinb2.txt");
-    TestRunner("Steinb2.txt");
-    TestRunner("Steinb2.txt");
-    TestRunner("Steinb2.txt");
-    TestRunner("Steinb2.txt");
-    TestRunner("Steinb2.txt");
-    TestRunner("Steinb2.txt");
-    TestRunner("Steinb2.txt");
-    TestRunner("Steinb2.txt");
-    TestRunner("Steinb2.txt");
-    TestRunner("Steinb2.txt");
-    TestRunner("Steinb2.txt");
-
-    fo_xls << "Test 3" << endl;
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-    TestRunner("Steinb3.txt");
-
-    fo_xls << "Test 4" << endl;
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-    TestRunner("Steinb4.txt");
-
-    fo_xls << "Test 5" << endl;
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-    TestRunner("Steinb5.txt");
-
-    fo_xls << "Test 6" << endl;
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-    TestRunner("Steinb6.txt");
-
-    fo_xls << "Test 7" << endl;
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-    TestRunner("Steinb7.txt");
-
-    fo_xls << "Test 8" << endl;
-    TestRunner("Steinb8.txt");
-    TestRunner("Steinb8.txt");
-    TestRunner("Steinb8.txt");
-    TestRunner("Steinb8.txt");
-    TestRunner("Steinb8.txt");
-    TestRunner("Steinb8.txt");
-    TestRunner("Steinb8.txt");
-    TestRunner("Steinb8.txt");
-    TestRunner("Steinb8.txt");
-    TestRunner("Steinb8.txt");
-    TestRunner("Steinb8.txt");
-    TestRunner("Steinb8.txt");
-    TestRunner("Steinb8.txt");
-    TestRunner("Steinb8.txt");
-    TestRunner("Steinb8.txt");
-    TestRunner("Steinb8.txt");
-
-    fo_xls << "Test 9" << endl;
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-    TestRunner("Steinb9.txt");
-
-    fo_xls << "Test 10" << endl;
-    TestRunner("Steinb10.txt");
-    TestRunner("Steinb10.txt");
-    TestRunner("Steinb10.txt");
-    TestRunner("Steinb10.txt");
-    TestRunner("Steinb10.txt");
-    TestRunner("Steinb10.txt");
-    TestRunner("Steinb10.txt");
-    TestRunner("Steinb10.txt");
-    TestRunner("Steinb10.txt");
-    TestRunner("Steinb10.txt");
-    TestRunner("Steinb10.txt");
-    TestRunner("Steinb10.txt");
-    TestRunner("Steinb10.txt");
-    TestRunner("Steinb10.txt");
-    TestRunner("Steinb10.txt");
-    TestRunner("Steinb10.txt");
-    TestRunner("Steinb10.txt");
-
-    fo_xls << "Test 11" << endl;
-    TestRunner("Steinb11.txt");
-    TestRunner("Steinb11.txt");
-    TestRunner("Steinb11.txt");
-    TestRunner("Steinb11.txt");
-    TestRunner("Steinb11.txt");
-    TestRunner("Steinb11.txt");
-    TestRunner("Steinb11.txt");
-    TestRunner("Steinb11.txt");
-    TestRunner("Steinb11.txt");
-    TestRunner("Steinb11.txt");
-    TestRunner("Steinb11.txt");
-    TestRunner("Steinb11.txt");
-    TestRunner("Steinb11.txt");
-    TestRunner("Steinb11.txt");
-    TestRunner("Steinb11.txt");
-
-    fo_xls << "Test 12" << endl;
-    TestRunner("Steinb12.txt");
-    TestRunner("Steinb12.txt");
-    TestRunner("Steinb12.txt");
-    TestRunner("Steinb12.txt");
-    TestRunner("Steinb12.txt");
-    TestRunner("Steinb12.txt");
-    TestRunner("Steinb12.txt");
-    TestRunner("Steinb12.txt");
-    TestRunner("Steinb12.txt");
-    TestRunner("Steinb12.txt");
-    TestRunner("Steinb12.txt");
-    TestRunner("Steinb12.txt");
-    TestRunner("Steinb12.txt");
-    TestRunner("Steinb12.txt");
-    TestRunner("Steinb12.txt");
-
-    fo_xls << "Test 13" << endl;
-    TestRunner("Steinb13.txt");
-    TestRunner("Steinb13.txt");
-    TestRunner("Steinb13.txt");
-    TestRunner("Steinb13.txt");
-    TestRunner("Steinb13.txt");
-    TestRunner("Steinb13.txt");
-    TestRunner("Steinb13.txt");
-    TestRunner("Steinb13.txt");
-    TestRunner("Steinb13.txt");
-    TestRunner("Steinb13.txt");
-    TestRunner("Steinb13.txt");
-    TestRunner("Steinb13.txt");
-    TestRunner("Steinb13.txt");
-    TestRunner("Steinb13.txt");
-    TestRunner("Steinb13.txt");
-    TestRunner("Steinb13.txt");
-
-    fo_xls << "Test 14" << endl;
-    TestRunner("Steinb14.txt");
-    TestRunner("Steinb14.txt");
-    TestRunner("Steinb14.txt");
-    TestRunner("Steinb14.txt");
-    TestRunner("Steinb14.txt");
-    TestRunner("Steinb14.txt");
-    TestRunner("Steinb14.txt");
-    TestRunner("Steinb14.txt");
-    TestRunner("Steinb14.txt");
-    TestRunner("Steinb14.txt");
-    TestRunner("Steinb14.txt");
-    TestRunner("Steinb14.txt");
-    TestRunner("Steinb14.txt");
-    TestRunner("Steinb14.txt");
-    TestRunner("Steinb14.txt");
-    TestRunner("Steinb14.txt");
-    TestRunner("Steinb14.txt");
-
-    fo_xls << "Test 15" << endl;
-    TestRunner("Steinb15.txt");
-    TestRunner("Steinb15.txt");
-    TestRunner("Steinb15.txt");
-    TestRunner("Steinb15.txt");
-    TestRunner("Steinb15.txt");
-    TestRunner("Steinb15.txt");
-    TestRunner("Steinb15.txt");
-    TestRunner("Steinb15.txt");
-    TestRunner("Steinb15.txt");
-    TestRunner("Steinb15.txt");
-    TestRunner("Steinb15.txt");
-    TestRunner("Steinb15.txt");
-    TestRunner("Steinb15.txt");
-    TestRunner("Steinb15.txt");
-    TestRunner("Steinb15.txt");
-    TestRunner("Steinb15.txt");
-    TestRunner("Steinb15.txt");
-    TestRunner("Steinb15.txt");
-    TestRunner("Steinb15.txt");
-
-    fo_xls << "Test 16" << endl;
-    TestRunner("Steinb16.txt");
-    TestRunner("Steinb16.txt");
-    TestRunner("Steinb16.txt");
-    TestRunner("Steinb16.txt");
-    TestRunner("Steinb16.txt");
-    TestRunner("Steinb16.txt");
-    TestRunner("Steinb16.txt");
-    TestRunner("Steinb16.txt");
-    TestRunner("Steinb16.txt");
-    TestRunner("Steinb16.txt");
-    TestRunner("Steinb16.txt");
-    TestRunner("Steinb16.txt");
-    TestRunner("Steinb16.txt");
-    TestRunner("Steinb16.txt");
-    TestRunner("Steinb16.txt");
-    TestRunner("Steinb16.txt");
-    TestRunner("Steinb16.txt");
-    TestRunner("Steinb16.txt");
-    TestRunner("Steinb16.txt");
-
-    fo_xls << "Test 17" << endl;
-    TestRunner("Steinb17.txt");
-    TestRunner("Steinb17.txt");
-    TestRunner("Steinb17.txt");
-    TestRunner("Steinb17.txt");
-    TestRunner("Steinb17.txt");
-    TestRunner("Steinb17.txt");
-    TestRunner("Steinb17.txt");
-    TestRunner("Steinb17.txt");
-    TestRunner("Steinb17.txt");
-    TestRunner("Steinb17.txt");
-    TestRunner("Steinb17.txt");
-    TestRunner("Steinb17.txt");
-    TestRunner("Steinb17.txt");
-    TestRunner("Steinb17.txt");
-    TestRunner("Steinb17.txt");
-    TestRunner("Steinb17.txt");
-    TestRunner("Steinb17.txt");
-    TestRunner("Steinb17.txt");
-
-    fo_xls << "Test 18" << endl;
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");
-    TestRunner("Steinb18.txt");*/
+//    TestRunner("Steinb2.txt");
+//    TestRunner("Steinb3.txt");
+//    TestRunner("Steinb4.txt");
+//    TestRunner("Steinb5.txt");
+//    TestRunner("Steinb6.txt");
+//    TestRunner("Steinb7.txt");
+//    TestRunner("Steinb8.txt");
+//    TestRunner("Steinb9.txt");
+//    TestRunner("Steinb10.txt");
+//    TestRunner("Steinb11.txt");
+//    TestRunner("Steinb12.txt");
+//    TestRunner("Steinb13.txt");
+//    TestRunner("Steinb14.txt");
+//    TestRunner("Steinb15.txt");
+//    TestRunner("Steinb16.txt");
+//    TestRunner("Steinb17.txt");
+//    TestRunner("Steinb18.txt");
 //    TestRunner("Steinb19.txt");
 //    TestRunner("Steinb20.txt");
 
 
-    TestRunner("Steinc1.txt");
+//    TestRunner("Steinc1.txt");
 //    TestRunner("Steinc2.txt");
 //    TestRunner("Steinc3.txt");
 //    TestRunner("Steinc4.txt");
