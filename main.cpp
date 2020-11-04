@@ -4,9 +4,11 @@
 **/
 
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
 #include <ctime>
 
 using namespace std;
+using namespace __gnu_pbds;
 
 /** Edge class **/
 struct Edge{
@@ -38,7 +40,7 @@ struct Tree{
 
     int T = 0;
     map <pair <int, int>, int> adjmatrix;   // dùng kiểm tra nhanh 2 đỉnh kề nhau
-    map <int, int> adj_V; // đếm số cạnh kề với đỉnh u
+    gp_hash_table <int, int> adj_V; // đếm số cạnh kề với đỉnh u
 
     Tree(){
 
@@ -49,7 +51,7 @@ struct Tree{
         E = _E;
     }
 
-    Tree(vector <int> _V, vector <Edge> _E, map <pair <int, int>, int> _adjmatrix, int _T, map <int, int> _adj_V){
+    Tree(vector <int> _V, vector <Edge> _E, map <pair <int, int>, int> _adjmatrix, int _T, gp_hash_table <int, int> _adj_V){
         V = _V;
         E = _E;
         adjmatrix = _adjmatrix;
@@ -185,7 +187,7 @@ Tree LikePrim(){
     vector <int> V;
     vector <Edge> E;
     map <pair <int, int>, int> adjmatrix;
-    map <int, int> adj_V;
+    gp_hash_table <int, int> adj_V;
     int T = 0;
 	int u = datain.Terminal[rand() % datain.l];
     V.push_back(u);
@@ -288,20 +290,31 @@ vector <Edge> Complement_Edge(vector <Edge> a, vector <Edge> b){
 
 Tree EdgeAdd(Tree t, Edge e){
 
-    set <int> L = datain.Terminal_set;
+    //set <int> L = datain.Terminal_set;
 
     t.T += e.value;
 //    t.T += t.adjmatrix[make_pair(e.v_1, e.v_2)];
     t.adjmatrix[make_pair(e.v_1, e.v_2)] = e.value;
     t.adjmatrix[make_pair(e.v_2, e.v_1)] = e.value;
+
+    if (t.adj_V[e.v_1] == 0){
+        t.V.push_back(e.v_1);
+    }
+
+    if (t.adj_V[e.v_2] == 0){
+        t.V.push_back(e.v_2);
+    }
+
     t.adj_V[e.v_1]++;
     t.adj_V[e.v_2]++;
 
+    /* [Wrong?]
     // Chưa tối ưu
     bool v_1_bool = false;
     for (int i=0; i<t.V.size(); i++){
         if (t.V[i] == e.v_1){
             v_1_bool = true;
+            break;
         }
     }
     if (!v_1_bool){
@@ -312,11 +325,13 @@ Tree EdgeAdd(Tree t, Edge e){
     for (int i=0; i<t.V.size(); i++){
         if (t.V[i] == e.v_2){
             v_2_bool = true;
+            break;
         }
     }
     if (!v_2_bool){
         t.V.push_back(e.v_2);
     }
+    */
 
     t.E.push_back(e);
     //t.E.erase(find(t.E.begin(), t.E.end(), e));
@@ -326,15 +341,19 @@ Tree EdgeAdd(Tree t, Edge e){
 
 Tree EdgeRemove(Tree t, Edge e){
 
-    set <int> L = datain.Terminal_set;
+    //set <int> L = datain.Terminal_set;
 
+    /* [Wrong?]
     t.T -= t.adjmatrix[make_pair(e.v_1, e.v_2)];
+    */
+
+    t.T -= e.value;
     t.adjmatrix[make_pair(e.v_1, e.v_2)] = 0;
     t.adjmatrix[make_pair(e.v_2, e.v_1)] = 0;
-    if ((t.adj_V[e.v_1] == 1 && L.find(e.v_1) == L.end())){
+    if ((t.adj_V[e.v_1] == 1 && datain.Terminal_set.find(e.v_1) == datain.Terminal_set.end())){
         t.V.erase(find(t.V.begin(), t.V.end(), e.v_1));
     }
-    else if ((t.adj_V[e.v_2] == 1 && L.find(e.v_2) == L.end())){
+    else if ((t.adj_V[e.v_2] == 1 && datain.Terminal_set.find(e.v_2) == datain.Terminal_set.end())){
         t.V.erase(find(t.V.begin(), t.V.end(), e.v_2));
     }
     t.adj_V[e.v_1]--;
@@ -352,9 +371,13 @@ Tree EdgeRemove(Tree t, Edge e){
 
 Tree EdgeRemove_Without_L(Tree t, Edge e){
 
-    set <int> L = datain.Terminal_set;
+    //set <int> L = datain.Terminal_set;
 
+    /* [Wrong?]
     t.T -= t.adjmatrix[make_pair(e.v_1, e.v_2)];
+    */
+
+    t.T -= e.value;
     t.adjmatrix[make_pair(e.v_1, e.v_2)] = 0;
     t.adjmatrix[make_pair(e.v_2, e.v_1)] = 0;
     if (t.adj_V[e.v_1] == 1){
@@ -377,7 +400,7 @@ Tree EdgeRemove_Without_L(Tree t, Edge e){
 }
 
 Tree EdgeDel(Tree t){
-    map <int, int> count_edge;
+    gp_hash_table <int, int> count_edge;
 
     for (Edge e : t.E){
         count_edge[e.v_1]++;
@@ -391,7 +414,11 @@ Tree EdgeDel(Tree t){
             E.push_back(e);
         }
         else{
+            /* [Wrong?]
             t.T -= t.adjmatrix[make_pair(e.v_1, e.v_2)];
+            */
+
+            t.T -= e.value;
             t.adjmatrix[make_pair(e.v_1, e.v_2)] = 0;
             t.adjmatrix[make_pair(e.v_2, e.v_1)] = 0;
             t.adj_V[e.v_1]--;
@@ -483,12 +510,28 @@ bool isCyclicUtil(int v, bool visited[], int parent, Tree t){
             }
         }
     }
+
+    /* Closed
+    for (int i=0; i < t.V.size(); i++){
+        int h = t.V[i];
+        if (t.adjmatrix[make_pair(v, h)] != 0){
+            //cerr << h << ' ' << visited[h] << '\n';
+            if (!visited[h]){
+               if (isCyclicUtil(h, visited, v, t))
+                  return true;
+            }
+            else if (h != parent){
+               return true;
+            }
+        }
+    }
+    */
     return false;
 }
 
 bool is_tree(Tree t){
-    bool *visited = new bool[50007];
-    for (int i = 1; i <= 50007; i++){
+    bool *visited = new bool[12507];
+    for (int i = 1; i <= 12507; i++){
         visited[i] = false;
     }
 
@@ -517,9 +560,6 @@ bool is_steiner_tree(Tree t){
 //            return false;
 //        }
 //    }
-    if (!is_tree(t)){
-        return false;
-    }
 
     set <int> T;
     for (int v : t.V){
@@ -532,23 +572,40 @@ bool is_steiner_tree(Tree t){
         return false;
     }
 
+    if (!is_tree(t)){
+        return false;
+    }
+
     return true;
 }
 
 Tree NeighSearch(Tree t, int k){
     Tree tb = t;
+    int tb_T = ReduceTreeValue(tb);
+
     for (int i=1; i<=k; i++){
+        clock_t start = clock();
         Edge e_del = t.E[rand()%t.E.size()];
         t = EdgeRemove_Without_L(t, e_del);
 //        vector <Edge> sub_E = Complement_Edge(datain.E, t.E);
         Edge e_add = sub_E_t[rand()%sub_E_t.size()];
         t = EdgeAdd(t, e_add);
 
-
+        cout << "[1] = " << clock() - start << '\n';
 //        cout << e_del.value << ' ' << e_add.value << ' ';
 //        cout << tb.T << ' ' << t.T << '\n';
-        if (ReduceTreeValue(t) < ReduceTreeValue(tb) && is_steiner_tree(t)){
+
+        clock_t start_2 = clock();
+
+        int t_T = ReduceTreeValue(t);
+
+
+        cout << "[2] = " << clock() - start_2 << '\n';
+
+        clock_t start_3 = clock();
+        if (t_T < tb_T && is_steiner_tree(t)){
             tb = t;
+            tb_T = t_T;
             sub_E_t.push_back(e_del);
             for (int j=0; j<sub_E_t.size(); j++){
                 if (sub_E_t[j] == e_add){
@@ -560,6 +617,9 @@ Tree NeighSearch(Tree t, int k){
         else{
             t = tb;
         }
+
+        cout << "[3] = " << clock() - start_3 << '\n';
+
     }
 
     return tb;
@@ -887,7 +947,7 @@ void TestRunner(string fi){
     /* NeighSearch */
     start = std::clock();
     sub_E_t = Complement_Edge(datain.E, Bees_Trees[0].E);
-    Tree t_neighsearch = NeighSearch(Bees_Trees[0], 2*datain.m*datain.m);
+    Tree t_neighsearch = NeighSearch(Bees_Trees[0], 10000);
 //    Tree tt = NeighSearch(t_neighsearch, 1000);
 //    while (t_neighsearch.T != tt.T){
 //        t_neighsearch = tt;
@@ -1099,7 +1159,7 @@ int main(){
 //    TestRunner("Steinb20.txt");
 
 
-//    TestRunner("Steinc1.txt");
+    TestRunner("Steinc1.txt");
 //    TestRunner("Steinc2.txt");
 //    TestRunner("Steinc3.txt");
 //    TestRunner("Steinc4.txt");
