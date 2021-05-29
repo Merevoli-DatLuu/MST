@@ -13,7 +13,7 @@ Using variable neighborhood search (VNS-NS).
 ---
 
 ## Giới thiệu
-Thuật toán giải quyết bài toán Steiner Minimal Tree (SMT) sử dụng tìm kiếm lân cận biến đổi (VNS-NS). Đề xuất và cài đặt thêm 2 chiến lược tìm kiếm lân cận. Thực nghiệm trên 3 bộ dữ liệu với số đỉnh lên đến 1000. Đây là thuật toán được cài đặt hỗ trợ cho bài báo khoa học của ThS. Trần Việt Chương và TS. Phan Tấn Quốc.
+Thuật toán giải quyết bài toán Steiner Minimal Tree (SMT) sử dụng tìm kiếm lân cận biến đổi (VNS-NS). Đề xuất và cài đặt thêm 2 chiến lược tìm kiếm lân cận. Thực nghiệm trên 3 bộ dữ liệu với số đỉnh lên đến 1000. *Đây là thuật toán được cài đặt hỗ trợ cho bài báo khoa học của ThS. Trần Việt Chương và TS. Phan Tấn Quốc*.
 
 > Mục đích của thuật toán này là cải thiện chất lượng của một cây Steiner đã tồn tại.
 
